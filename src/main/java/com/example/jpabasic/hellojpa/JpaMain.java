@@ -1,5 +1,7 @@
 package com.example.jpabasic.hellojpa;
 
+import com.example.jpabasic.hellojpa.domain.Book;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -101,6 +103,14 @@ public class JpaMain {
             // em.clear();
             // em.close();
             */
+
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
+
+            em.persist(book);
+
+
             tx.commit(); //=> 이 시점에서 영속성 컨텍스트에 있는 애가 DB 쿼리로 날아간다.
         } catch (Exception e) {
             tx.rollback();

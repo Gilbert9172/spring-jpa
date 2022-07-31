@@ -19,12 +19,7 @@ public class JpaMain2 {
         /* 여기에 코드를 쓴다. */
 
         try {
-            Order order = new Order();
-            em.persist(order);
 
-            OrderItem orderItem1 = new OrderItem();
-            order.addOrderItem(orderItem1);
-            em.persist(orderItem1);
 
             tx.commit(); //=> 이 시점에서 영속성 컨텍스트에 있는 애가 DB 쿼리로 날아간다.
         } catch (Exception e) {
