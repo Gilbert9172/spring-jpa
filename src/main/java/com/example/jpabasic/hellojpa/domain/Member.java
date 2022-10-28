@@ -6,31 +6,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="MEMBER_ID")
+    @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name="USERNAME")
-    private String username;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    private String city;
 
-    private Member (String username, Team team) {
-        this.username = username;
-        this.team = team;
-    }
+    private String street;
 
-    public static Member of(String username, Team team) {
-        return new Member(username, team);
-    }
+    private String zipCode;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
 }

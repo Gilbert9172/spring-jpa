@@ -1,4 +1,4 @@
-package com.example.jpabasic.hellojpa.domain;
+package com.example.jpabasic.hellojpa.prac;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy="team")
-    private List<Member> members = new ArrayList<>();
+    private List<MemberPrac> members = new ArrayList<>();
 
     public Team(String name) {
         this.name = name;
