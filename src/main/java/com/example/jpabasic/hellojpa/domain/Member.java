@@ -17,13 +17,20 @@ public class Member {
     @Column(name="MEMBER_ID")
     private Long id;
 
-    @Column(length = 10)
-    private String name;
+    @Column(name="USERNAME")
+    private String username;
 
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
-    private String street;
+    private Member (String username, Team team) {
+        this.username = username;
+        this.team = team;
+    }
 
-    private String zipCode;
+    public static Member of(String username, Team team) {
+        return new Member(username, team);
+    }
 
 }
