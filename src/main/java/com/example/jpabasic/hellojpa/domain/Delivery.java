@@ -6,27 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class Delivery {
 
     @Id @GeneratedValue
-    @Column(name="ITEM_ID")
+    @Column(name = "DELIVERY_ID")
     private Long id;
 
-    private String name;
+    @OneToOne(mappedBy = "delivery")
+    private Order order;
 
-    private int price;
+    private String city;
+    private String street;
+    private String zipCode;
 
-    private int stockQuantity;
-
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
-
-
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus deliveryStatus;
 }

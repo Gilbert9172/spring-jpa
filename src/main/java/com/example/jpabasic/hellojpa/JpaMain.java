@@ -66,13 +66,14 @@ public class JpaMain {
             System.out.println("=======");
              */
 
-            /* 양방향 연관관계 */
+            /* 양방향 연관관계
             Team team = Team.of("TeamA");
             em.persist(team);
 
             MemberPrac member = MemberPrac.of("gilbert");
             member.changeTeam(team);
             em.persist(member);
+             */
 
             tx.commit();
         } catch (Exception e) {

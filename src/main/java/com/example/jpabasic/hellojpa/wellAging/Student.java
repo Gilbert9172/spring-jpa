@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -20,6 +22,9 @@ public class Student {
     private String name;
 
     private String gender;
+
+    @OneToMany(mappedBy = "student")
+    private List<StudentProgram> studentPrograms = new ArrayList<>();
 
     public Student(String name, String gender) {
         this.name = name;
