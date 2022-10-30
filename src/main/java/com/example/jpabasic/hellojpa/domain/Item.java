@@ -1,5 +1,6 @@
 package com.example.jpabasic.hellojpa.domain;
 
+import com.example.jpabasic.hellojpa.prac.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="ITEM_TYPE")
+public abstract class Item extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name="ITEM_ID")

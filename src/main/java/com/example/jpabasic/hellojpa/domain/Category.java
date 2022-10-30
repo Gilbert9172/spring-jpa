@@ -1,5 +1,6 @@
 package com.example.jpabasic.hellojpa.domain;
 
+import com.example.jpabasic.hellojpa.prac.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Category extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "CATEGORY_ID")

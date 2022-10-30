@@ -1,7 +1,7 @@
 package com.example.jpabasic.hellojpa;
 
-import com.example.jpabasic.hellojpa.prac.MemberPrac;
-import com.example.jpabasic.hellojpa.prac.Team;
+import com.example.jpabasic.hellojpa.domain.Book;
+import com.example.jpabasic.hellojpa.prac.MoviePrac;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -74,6 +74,26 @@ public class JpaMain {
             member.changeTeam(team);
             em.persist(member);
              */
+
+            /* 고급매핑
+            MoviePrac movie = new MoviePrac();
+            movie.setDirector("감독A");
+            movie.setActor("배우A");
+            movie.setName("영화A");
+            movie.setPrice(10000);
+            em.persist(movie);
+
+            em.flush();
+            em.clear();
+
+            MoviePrac findMovie = em.find(MoviePrac.class, movie.getId());
+             */
+
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
+            em.persist(book);
+
 
             tx.commit();
         } catch (Exception e) {
