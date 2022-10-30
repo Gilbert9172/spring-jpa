@@ -1,7 +1,9 @@
 package com.example.jpabasic.hellojpa;
 
 import com.example.jpabasic.hellojpa.domain.Book;
+import com.example.jpabasic.hellojpa.domain.Member;
 import com.example.jpabasic.hellojpa.prac.MoviePrac;
+import org.hibernate.Hibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -89,18 +91,33 @@ public class JpaMain {
             MoviePrac findMovie = em.find(MoviePrac.class, movie.getId());
              */
 
-            Book book = new Book();
-            book.setName("JPA");
-            book.setAuthor("김영한");
-            em.persist(book);
+            /* 프록시
+            Member member = new Member();
+            member.setName("gilbert");
+            em.persist(member);
+
+            Member member1 = new Member();
+            member1.setName("gilbert1");
+            em.persist(member1);
+
+            em.flush();
+            em.clear();
+
+            Member refMember = em.getReference(Member.class, member.getId());
+            System.out.println("초기화 전 = " + refMember.getClass());
+
+            Hibernate.initialize(refMember);
+            */
 
 
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
         emf.close();
     }
+
 }
