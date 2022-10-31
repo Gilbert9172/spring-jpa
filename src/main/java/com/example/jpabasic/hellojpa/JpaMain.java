@@ -2,9 +2,7 @@ package com.example.jpabasic.hellojpa;
 
 import com.example.jpabasic.hellojpa.domain.Book;
 import com.example.jpabasic.hellojpa.domain.Member;
-import com.example.jpabasic.hellojpa.prac.MemberPrac;
-import com.example.jpabasic.hellojpa.prac.MoviePrac;
-import com.example.jpabasic.hellojpa.prac.Team;
+import com.example.jpabasic.hellojpa.prac.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.EntityManager;
@@ -112,7 +110,7 @@ public class JpaMain {
             Hibernate.initialize(refMember);
             */
 
-            /* Lazy Loading  */
+            /* Lazy Loading
             Team team1 = new Team();
             team1.setName("Team1");
             em.persist(team1);
@@ -163,6 +161,24 @@ public class JpaMain {
             em.clear();
 
             List<MemberPrac> memberList = em.createQuery("SELECT m FROM MemberPrac m join fetch m.team", MemberPrac.class).getResultList();
+            */
+
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+
+            em.flush();
+            em.clear();
+
+            Parent findParent = em.find(Parent.class, parent.getId());
+            List<Child> childList = findParent.getChildList();
+
+            childList.remove(0);
 
             tx.commit();
         } catch (Exception e) {
