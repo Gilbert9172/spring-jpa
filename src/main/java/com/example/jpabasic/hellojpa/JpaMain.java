@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.Set;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -163,6 +164,7 @@ public class JpaMain {
             List<MemberPrac> memberList = em.createQuery("SELECT m FROM MemberPrac m join fetch m.team", MemberPrac.class).getResultList();
             */
 
+            /* 영속성 전이
             Child child1 = new Child();
             Child child2 = new Child();
 
@@ -179,6 +181,63 @@ public class JpaMain {
             List<Child> childList = findParent.getChildList();
 
             childList.remove(0);
+             */
+
+            /* 값 타입
+            Address address1 = new Address("city", "street", "10000");
+            Address address2= new Address("city", "street", "10000");
+
+            System.out.println(address1.equals(address2));
+            */
+
+            /* 값타입 - 컬렉션 (저장) */
+            MemberPrac member1 = new MemberPrac();
+            member1.setUsername("member1");
+            member1.setHomeAddress(new Address("city1", "street1", "10000"));
+
+            member1.getFavoriteFoods().add("치킨");
+            member1.getFavoriteFoods().add("족발");
+            member1.getFavoriteFoods().add("피자");
+
+            member1.getAddressHistory().add(new AddressEntity(new Address("city2", "street2", "20000")));
+            member1.getAddressHistory().add(new AddressEntity(new Address("city3", "street3", "30000")));
+
+            em.persist(member1);
+
+            /* 값 타입 - 컬렉션(조회)
+            em.flush();
+            em.clear();
+
+            System.out.println("========= START =========");
+            MemberPrac findMember = em.find(MemberPrac.class, member1.getId());
+            List<Address> addressHistory = findMember.getAddressHistory();
+            Set<String> favoriteFoods = findMember.getFavoriteFoods();
+
+            for (String favoriteFood : favoriteFoods) {
+                System.out.println("favoriteFood = " + favoriteFood);
+            }
+
+            for (Address address : addressHistory) {
+                System.out.println("address = " + address);
+            }
+            */
+
+            /* 값 타입 - 컬렉션(수정)
+            em.flush();
+            em.clear();
+
+            System.out.println("========= START =========");
+            MemberPrac findMember = em.find(MemberPrac.class, member1.getId());
+
+            findMember.setHomeAddress(new Address("New-City","New-Street","10000"));
+
+            // 치킨을 한식으로 변경
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
+
+            findMember.getAddressHistory().remove(new AddressEntity(new Address("city20", "street20", "21111")));
+            findMember.getAddressHistory().add(new AddressEntity(new Address("city30", "street30", "31111")));
+            */
 
             tx.commit();
         } catch (Exception e) {
